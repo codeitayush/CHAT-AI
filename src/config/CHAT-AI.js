@@ -1,5 +1,3 @@
-
-
 /*
  * Install the Generative AI SDK
  *
@@ -13,13 +11,13 @@ import {
   GoogleGenerativeAI,
   HarmCategory,
   HarmBlockThreshold,
-} from "@google/generative-ai"
+} from '@google/generative-ai';
 
-const apiKey = process.env.GEMINI_API_KEY;
-const genAI = new GoogleGenerativeAI("AIzaSyAG5qyv5xr1qQnMzSCNOoDmHDm-VY9FrcQ");
+const apiKey = import.meta.env.GEMINI_API_KEY;
+const genAI = new GoogleGenerativeAI('AIzaSyAG5qyv5xr1qQnMzSCNOoDmHDm-VY9FrcQ');
 
 const model = genAI.getGenerativeModel({
-  model: "gemini-1.5-flash",
+  model: 'gemini-1.5-flash',
 });
 
 const generationConfig = {
@@ -27,16 +25,15 @@ const generationConfig = {
   topP: 0.95,
   topK: 64,
   maxOutputTokens: 8192,
-  responseMimeType: "text/plain",
+  responseMimeType: 'text/plain',
 };
 
 async function run(prompt) {
   const chatSession = model.startChat({
     generationConfig,
- // safetySettings: Adjust safety settings
- // See https://ai.google.dev/gemini-api/docs/safety-settings
-    history: [
-    ],
+    // safetySettings: Adjust safety settings
+    // See https://ai.google.dev/gemini-api/docs/safety-settings
+    history: [],
   });
 
   const result = await chatSession.sendMessage(prompt);
